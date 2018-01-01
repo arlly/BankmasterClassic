@@ -8,6 +8,7 @@ use AppBundle\Controller\PaginatorTrait;
 use AppBundle\Form\TourType;
 use AppBundle\Entity\Tour;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Criteria\IdCriteriaBuilder;
 
 
 /**
@@ -59,6 +60,18 @@ class TourController extends Controller
         return $this->render('admin/tour/add.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @method ("GET")
+     * @Route("/remove/{id}", name="admin.tour.remove")
+     */
+    public function removeAction(int $id)
+    {
+        $tour = $this->get('bankmaster.tour.get_one')->run(new IdCriteriaBuilder($id, false));
+        $this->get('bankmaster.tour.remove')->run($tour);
+
+        return $this->redirect($this->generateUrl('admin.tour.index'));
     }
 
 }

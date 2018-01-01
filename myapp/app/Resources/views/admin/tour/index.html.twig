@@ -43,7 +43,7 @@
     <td>{{ tour.startDate.date|date("Y-m-d") }}</td>
     <td>{{ tour.endDate.date|date("Y-m-d") }}</td>
     <td><a href="">編集</a></td>
-    <td><a href="">削除</a></td>
+    <td><a href={{ path('admin.tour.remove', {"id": tour.id}) }}>削除</a></td>
 </tr>
 {% endfor %}
       </table>
