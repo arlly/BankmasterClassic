@@ -1,84 +1,32 @@
 services:
-    app.inquiry.get_one:
+    bankmaster.tour.get_one:
         class: AppBundle\Fulcrum\Usecase\GetOne
-        arguments: ["@app.inquiry_repository"]
+        arguments: ["@bankmaster.tour_repository"]
         
-    app.inquiry.search:
+    bankmaster.tour.search:
         class: AppBundle\Fulcrum\Usecase\Search
-        arguments: ["@app.inquiry_repository"]
+        arguments: ["@bankmaster.tour_repository"]
         
-    app.inquiry.create:
+    bankmaster.tour.create:
         class: AppBundle\Fulcrum\Usecase\CreateEntity
-        arguments: ["@app.inquiry_repository", "@event_dispatcher"]
+        arguments: ["@bankmaster.tour_repository", "@event_dispatcher"]
         
-    app.inquiry.update:
+    bankmaster.tour.update:
         class: AppBundle\Fulcrum\Usecase\UpdateEntity
-        arguments: ["@app.inquiry_repository", "@event_dispatcher"]
+        arguments: ["@bankmaster.tour_repository", "@event_dispatcher"]
         
-    app.inquiry.remove:
+    bankmaster.tour.remove:
         class: AppBundle\Fulcrum\Usecase\RemoveEntity
-        arguments: ["@app.inquiry_repository", "@event_dispatcher"]
+        arguments: ["@bankmaster.tour_repository", "@event_dispatcher"]
         
         
-    app.product.get_one:
-        class: AppBundle\Fulcrum\Usecase\GetOne
-        arguments: ["@app.product_repository"]
-        
-    app.product.search:
-        class: AppBundle\Fulcrum\Usecase\Search
-        arguments: ["@app.product_repository"]
-        
-    app.product.create:
-        class: AppBundle\Fulcrum\Usecase\CreateEntity
-        arguments: ["@app.product_repository", "@event_dispatcher"]
-        
-    app.product.update:
-        class: AppBundle\Fulcrum\Usecase\UpdateEntity
-        arguments: ["@app.product_repository", "@event_dispatcher"]
-        
-    app.product.remove:
-        class: AppBundle\Fulcrum\Usecase\RemoveEntity
-        arguments: ["@app.product_repository", "@event_dispatcher"]
-        
-    app.category.get_one:
-        class: AppBundle\Fulcrum\Usecase\GetOne
-        arguments: ["@app.category_repository"]
-        
-    app.category.search:
-        class: AppBundle\Fulcrum\Usecase\Search
-        arguments: ["@app.category_repository"]
-        
-    app.category.create:
-        class: AppBundle\Fulcrum\Usecase\CreateEntity
-        arguments: ["@app.category_repository", "@event_dispatcher"]
-        
-    app.category.update:
-        class: AppBundle\Fulcrum\Usecase\UpdateEntity
-        arguments: ["@app.category_repository", "@event_dispatcher"]
-        
-    app.category.remove:
-        class: AppBundle\Fulcrum\Usecase\RemoveEntity
-        arguments: ["@app.category_repository", "@event_dispatcher"]
-        
-    app.inquiry_repository:
-        class:  AppBundle\Repository\InquiryRepository
+    bankmaster.tour_repository:
+        class:  AppBundle\Repository\TourRepository
         factory: ["@doctrine.orm.default_entity_manager", getRepository]
         arguments:
-            - AppBundle\Entity\Inquiry
+            - AppBundle\Entity\Tour
             
-    app.product_repository:
-        class:  AppBundle\Repository\ProductRepository
-        factory: ["@doctrine.orm.default_entity_manager", getRepository]
-        arguments:
-            - AppBundle\Entity\Product
-            
-    app.category_repository:
-        class:  AppBundle\Repository\CategoryRepository
-        factory: ["@doctrine.orm.default_entity_manager", getRepository]
-        arguments:
-            - AppBundle\Entity\Category
-            
-    app.send_mail:
+    bankmaster.send_mail:
         class:  AppBundle\Usecase\SendMail
         arguments: ["@swiftmailer.mailer.default"]
         
