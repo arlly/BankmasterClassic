@@ -40,7 +40,7 @@ class TourController extends Controller
         $form = $this->createForm(TourType::class, new Tour());
         $form->handleRequest($request);
 
-        if (! $form->isValid()) return $this->render('admin/tour/add.html.twig', ['form' => $form->createView()]);
+        if (! $form->isValid()) return $this->render('admin/tour/edit.html.twig', ['form' => $form->createView()]);
 
         $tour = $form->getData();
         $this->get('bankmaster.tour.create')->run($tour);
@@ -57,10 +57,44 @@ class TourController extends Controller
     public function addAction()
     {
         $form = $this->createForm(TourType::class, new Tour());
-        return $this->render('admin/tour/add.html.twig', [
+        return $this->render('admin/tour/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
+
+
+    /**
+     * @method ("POST")
+     * @Route("/update/{id}")
+     */
+    public function updatePostAction(int $id, Request $request)
+    {
+        $tour = $this->get('bankmaster.tour.get_one')->run(new IdCriteriaBuilder($id, false));
+        $form = $this->createForm(TourType::class, $tour);
+        $form->handleRequest($request);
+
+        if (! $form->isValid()) return $this->render('admin/tour/edit.html.twig', ['form' => $form->createView()]);
+
+        $this->get('bankmaster.tour.update')->run($tour);
+
+        return $this->redirect($this->generateUrl('admin.tour.index'));
+    }
+
+
+    /**
+     *
+     * @method ("GET")
+     * @Route("/update/{id}", name="admin.tour.update")
+     */
+    public function updateAction(int $id)
+    {
+        $tour = $this->get('bankmaster.tour.get_one')->run(new IdCriteriaBuilder($id, false));
+        $form = $this->createForm(TourType::class, $tour);
+        return $this->render('admin/tour/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 
     /**
      * @method ("GET")

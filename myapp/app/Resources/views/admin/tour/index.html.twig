@@ -17,9 +17,7 @@
           <i class="material-icons">more_vert</i>
         </a>
         <ul class="dropdown-menu pull-right">
-          <li><a href="javascript:void(0);">Action</a></li>
-          <li><a href="javascript:void(0);">Another action</a></li>
-          <li><a href="javascript:void(0);">Something else here</a></li>
+          <li><a href={{ path('admin.tour.add') }}> +新規追加</a></li>
         </ul>
       </li>
     </ul>
@@ -42,7 +40,7 @@
     <th>{{ tour.name }}</th>
     <td>{{ tour.startDate.date|date("Y-m-d") }}</td>
     <td>{{ tour.endDate.date|date("Y-m-d") }}</td>
-    <td><a href="">編集</a></td>
+    <td><a href={{ path('admin.tour.update', {"id": tour.id}) }}>編集</a></td>
     <td><a href={{ path('admin.tour.remove', {"id": tour.id}) }}>削除</a></td>
 </tr>
 {% endfor %}
