@@ -7,12 +7,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use PHPMentors\DomainKata\Entity\EntityInterface;
 
 /**
- * Tour
+ * Tournament
  *
- * @ORM\Table(name="tour")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TourRepository")
+ * @ORM\Table(name="tournament")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TournamentRepository")
  */
-class Tour implements EntityInterface
+class Tournament implements EntityInterface
 {
     /**
      * @var int
@@ -28,7 +28,6 @@ class Tour implements EntityInterface
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
-     * @Assert\Length(max=255)
      */
     private $name;
 
@@ -52,6 +51,14 @@ class Tour implements EntityInterface
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="tour")
+     * @ORM\JoinColumn(name="tour_id", referencedColumnName="id")
+     */
+    private $tour;
+
+
+
+    /**
      * Get id
      *
      * @return int
@@ -66,7 +73,7 @@ class Tour implements EntityInterface
      *
      * @param string $name
      *
-     * @return Tour
+     * @return Tournament
      */
     public function setName($name)
     {
@@ -90,7 +97,7 @@ class Tour implements EntityInterface
      *
      * @param \DateTime $startDate
      *
-     * @return Tour
+     * @return Tournament
      */
     public function setStartDate($startDate)
     {
@@ -114,7 +121,7 @@ class Tour implements EntityInterface
      *
      * @param \DateTime $endDate
      *
-     * @return Tour
+     * @return Tournament
      */
     public function setEndDate($endDate)
     {
@@ -131,5 +138,29 @@ class Tour implements EntityInterface
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    /**
+     * Set tour
+     *
+     * @param \AppBundle\Entity\Tour $tour
+     *
+     * @return Tournament
+     */
+    public function setTour(\AppBundle\Entity\Tour $tour = null)
+    {
+        $this->tour = $tour;
+
+        return $this;
+    }
+
+    /**
+     * Get tour
+     *
+     * @return \AppBundle\Entity\Tour
+     */
+    public function getTour()
+    {
+        return $this->tour;
     }
 }

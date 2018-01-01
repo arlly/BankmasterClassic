@@ -133,3 +133,4 @@ class Tour implements EntityInterface
         return $this->endDate;
     }
 }
+
