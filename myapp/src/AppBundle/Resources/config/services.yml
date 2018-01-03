@@ -19,12 +19,40 @@ services:
         class: AppBundle\Fulcrum\Usecase\RemoveEntity
         arguments: ["@bankmaster.tour_repository", "@event_dispatcher"]
         
+    
+    bankmaster.tournament.get_one:
+        class: AppBundle\Fulcrum\Usecase\GetOne
+        arguments: ["@bankmaster.tournament_repository"]
+        
+    bankmaster.tournament.search:
+        class: AppBundle\Fulcrum\Usecase\Search
+        arguments: ["@bankmaster.tournament_repository"]
+        
+    bankmaster.tournament.create:
+        class: AppBundle\Fulcrum\Usecase\CreateEntity
+        arguments: ["@bankmaster.tournament_repository", "@event_dispatcher"]
+        
+    bankmaster.tournament.update:
+        class: AppBundle\Fulcrum\Usecase\UpdateEntity
+        arguments: ["@bankmaster.tournament_repository", "@event_dispatcher"]
+        
+    bankmaster.tournament.remove:
+        class: AppBundle\Fulcrum\Usecase\RemoveEntity
+        arguments: ["@bankmaster.tournament_repository", "@event_dispatcher"]
+        
+        
         
     bankmaster.tour_repository:
         class:  AppBundle\Repository\TourRepository
         factory: ["@doctrine.orm.default_entity_manager", getRepository]
         arguments:
             - AppBundle\Entity\Tour
+            
+    bankmaster.tournament_repository:
+        class:  AppBundle\Repository\TournamentRepository
+        factory: ["@doctrine.orm.default_entity_manager", getRepository]
+        arguments:
+            - AppBundle\Entity\Tournament
             
     bankmaster.send_mail:
         class:  AppBundle\Usecase\SendMail

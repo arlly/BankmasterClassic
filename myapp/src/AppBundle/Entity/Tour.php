@@ -132,4 +132,9 @@ class Tour implements EntityInterface
     {
         return $this->endDate;
     }
+
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
 }
