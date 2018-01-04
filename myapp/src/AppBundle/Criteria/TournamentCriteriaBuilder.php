@@ -92,10 +92,6 @@ class TournamentCriteriaBuilder implements CriteriaBuilderInterface, ToQueryBuil
                     )
                 );
         }
-
-
-
-
     }
 
 

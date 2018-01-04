@@ -151,4 +151,40 @@ class Tour implements EntityInterface
     {
         return (string) $this->name;
     }
+
+    /**
+     * Add tournament.
+     *
+     * @param \AppBundle\Entity\Tournament $tournament
+     *
+     * @return Tour
+     */
+    public function addTournament(\AppBundle\Entity\Tournament $tournament)
+    {
+        $this->tournaments[] = $tournament;
+
+        return $this;
+    }
+
+    /**
+     * Remove tournament.
+     *
+     * @param \AppBundle\Entity\Tournament $tournament
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeTournament(\AppBundle\Entity\Tournament $tournament)
+    {
+        return $this->tournaments->removeElement($tournament);
+    }
+
+    /**
+     * Get tournaments.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTournaments()
+    {
+        return $this->tournaments;
+    }
 }
