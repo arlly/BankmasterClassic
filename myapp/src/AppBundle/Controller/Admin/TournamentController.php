@@ -10,6 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Criteria\IdCriteriaBuilder;
 use AppBundle\Form\TournamentType;
 use AppBundle\Entity\Tournament;
+use AppBundle\Criteria\TourIdCriteriaBuilder;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use AppBundle\Criteria\TournamentCriteriaBuilder;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 
 /**
@@ -25,11 +31,34 @@ class TournamentController extends Controller
      * @Method ("GET")
      * @Route("/index", name="admin.tournament.index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $tournamentList = $this->get('bankmaster.tournament_repository')->findAll();
-        return $this->render('admin/tournament/index.html.twig', ['tournamentList' => $tournamentList]);
+
+        $query = $this->get('bankmaster.tournament.search')->run(new TournamentCriteriaBuilder($request->query));
+        $tournamentList = $this->getPaginatedResources($query, $request->query);
+
+        return $this->render('admin/tournament/index.html.twig',
+                              [
+                                  'tournamentList' => $tournamentList,
+                                  'query' => $this->generateUrlParameter($request->query),
+                                  'form' => $this->createForm(TournamentType::class)->createView()
+                              ]);
     }
+
+    /**
+     *
+     * @Method ("POST")
+     * @Route("/index")
+     */
+    public function indexPostAction(Request $request)
+    {
+        $form = $this->createForm(TournamentType::class);
+        $form->handleRequest($request);
+
+        return $this->redirectToRoute('admin.tournament.index', $request->request->get('tournament'));
+    }
+
+
 
     /**
      *
@@ -107,6 +136,22 @@ class TournamentController extends Controller
         $this->get('bankmaster.tournament.remove')->run($tournament);
 
         return $this->redirect($this->generateUrl('admin.tournament.index'));
+    }
+
+    private function generateUrlParameter(ParameterBag $query)
+    {
+        $parameter = '';
+        $no = 0;
+
+        foreach ($query as $k => $v) {
+            if ($k === 'page') continue;
+
+            $parameter .= "{$k}={$v}";
+            $no++;
+
+            if ($no !== count($query)) $parameter .= "&";
+        }
+        return $parameter;
     }
 
 }

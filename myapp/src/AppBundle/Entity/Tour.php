@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use PHPMentors\DomainKata\Entity\EntityInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tour
@@ -49,6 +50,19 @@ class Tour implements EntityInterface
      * @Assert\Date()
      */
     private $endDate;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Tournament", mappedBy="tour")
+     */
+    private $tournaments;
+
+
+    public function __construct()
+    {
+        $this->tournaments = new ArrayCollection();
+    }
 
 
     /**
@@ -136,5 +150,41 @@ class Tour implements EntityInterface
     public function __toString()
     {
         return (string) $this->name;
+    }
+
+    /**
+     * Add tournament.
+     *
+     * @param \AppBundle\Entity\Tournament $tournament
+     *
+     * @return Tour
+     */
+    public function addTournament(\AppBundle\Entity\Tournament $tournament)
+    {
+        $this->tournaments[] = $tournament;
+
+        return $this;
+    }
+
+    /**
+     * Remove tournament.
+     *
+     * @param \AppBundle\Entity\Tournament $tournament
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeTournament(\AppBundle\Entity\Tournament $tournament)
+    {
+        return $this->tournaments->removeElement($tournament);
+    }
+
+    /**
+     * Get tournaments.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTournaments()
+    {
+        return $this->tournaments;
     }
 }

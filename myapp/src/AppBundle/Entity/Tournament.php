@@ -53,6 +53,7 @@ class Tournament implements EntityInterface
     /**
      * @ORM\ManyToOne(targetEntity="Tour", inversedBy="tour")
      * @ORM\JoinColumn(name="tour_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $tour;
 
