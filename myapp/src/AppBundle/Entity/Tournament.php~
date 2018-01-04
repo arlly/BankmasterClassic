@@ -53,6 +53,7 @@ class Tournament implements EntityInterface
     /**
      * @ORM\ManyToOne(targetEntity="Tour", inversedBy="tour")
      * @ORM\JoinColumn(name="tour_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $tour;
 
@@ -139,5 +140,28 @@ class Tournament implements EntityInterface
     {
         return $this->endDate;
     }
-}
 
+    /**
+     * Set tour
+     *
+     * @param \AppBundle\Entity\Tour $tour
+     *
+     * @return Tournament
+     */
+    public function setTour(\AppBundle\Entity\Tour $tour = null)
+    {
+        $this->tour = $tour;
+
+        return $this;
+    }
+
+    /**
+     * Get tour
+     *
+     * @return \AppBundle\Entity\Tour
+     */
+    public function getTour()
+    {
+        return $this->tour;
+    }
+}

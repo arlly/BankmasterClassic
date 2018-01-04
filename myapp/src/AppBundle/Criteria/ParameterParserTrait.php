@@ -7,8 +7,7 @@ trait ParameterParserTrait
 {
     protected function parseQueryValues()
     {
-        $queryString = $this->query->get('q');
-        //$queryString = $this->query->get('form')['q'];
+        $queryString = $this->query->get('name');
 
         if (! $queryString) return [];
 
@@ -23,7 +22,7 @@ trait ParameterParserTrait
 
     protected function createQueryComposite()
     {
-        $queryString = $this->query->get('q');
+        $queryString = $this->query->get('name');
         //$queryString = $this->query->get('form')['q'];
 
         if (! $queryString) return null;

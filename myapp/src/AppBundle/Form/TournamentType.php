@@ -27,7 +27,8 @@ class TournamentType extends AbstractType
             'widget' => 'single_text'
         ])
             ->add('tour', EntityType::class, [
-            'class' => Tour::class
+            'class' => Tour::class,
+            'placeholder' => '選択してください'
         ])
             ->
         add('send', SubmitType::class, [

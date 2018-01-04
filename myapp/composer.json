@@ -24,7 +24,8 @@
         "twig/twig": "^1.0||^2.0",
         "phpoffice/phpexcel": "~1.8.1",
         "phpmentors/domain-kata": "^1.4",
-        "aws/aws-sdk-php": "^3.20"
+        "aws/aws-sdk-php": "^3.20",
+        "nesbot/carbon": "^1.22"
     },
     "require-dev": {
         "phake/phake": "2.*",
