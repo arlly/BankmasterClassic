@@ -58,3 +58,7 @@ services:
         class:  AppBundle\Usecase\SendMail
         arguments: ["@swiftmailer.mailer.default"]
         
+    bankmaster.settings_authenticator:
+        class: AppBundle\Service\SettingAuth
+        arguments: ["@doctrine.orm.default_entity_manager", "@router"]
+        
