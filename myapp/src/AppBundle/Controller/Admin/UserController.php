@@ -20,9 +20,9 @@ use AppBundle\Controller\UrlParameterTrait;
 
 
 /**
- * @Route("/admin/tournament")
+ * @Route("/admin/user")
  */
-class TournamentController extends Controller
+class UserController extends Controller
 {
     use PaginatorTrait;
     use UrlParameterTrait;
@@ -31,7 +31,7 @@ class TournamentController extends Controller
     /**
      *
      * @Method ("GET")
-     * @Route("/index", name="admin.tournament.index")
+     * @Route("/index", name="admin.user.index")
      */
     public function indexAction(Request $request)
     {
@@ -41,7 +41,7 @@ class TournamentController extends Controller
 
         return $this->render('admin/tournament/index.html.twig',
                               [
-                                  'tournamentList' => $tournamentList,
+                                  'userList' => $tournamentList,
                                   'query' => $this->generateUrlParameter($request->query),
                                   'form' => $this->createForm(TournamentType::class)->createView()
                               ]);
@@ -84,7 +84,7 @@ class TournamentController extends Controller
     /**
      *
      * @Method ("GET")
-     * @Route("/add", name="admin.tournament.add")
+     * @Route("/add", name="admin.user.add")
      */
     public function addAction()
     {
@@ -116,7 +116,7 @@ class TournamentController extends Controller
     /**
      *
      * @Method ("GET")
-     * @Route("/update/{id}", name="admin.tournament.update")
+     * @Route("/update/{id}", name="admin.user.update")
      */
     public function updateAction(int $id)
     {
@@ -130,7 +130,7 @@ class TournamentController extends Controller
 
     /**
      * @Method ("GET")
-     * @Route("/remove/{id}", name="admin.tournament.remove")
+     * @Route("/remove/{id}", name="admin.user.remove")
      */
     public function removeAction(int $id)
     {
