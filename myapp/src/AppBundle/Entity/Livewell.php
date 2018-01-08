@@ -67,6 +67,14 @@ class Livewell implements EntityInterface
      */
     private $tournament;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="user")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @Assert\NotBlank()
+     */
+    private $user;
+
+
 
 
     /**
@@ -221,5 +229,29 @@ class Livewell implements EntityInterface
     public function getTournament()
     {
         return $this->tournament;
+    }
+
+    /**
+     * Set user.
+     *
+     * @param \AppBundle\Entity\User|null $user
+     *
+     * @return Livewell
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user.
+     *
+     * @return \AppBundle\Entity\User|null
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
