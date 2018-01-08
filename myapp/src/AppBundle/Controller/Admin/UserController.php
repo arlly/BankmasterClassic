@@ -36,14 +36,13 @@ class UserController extends Controller
     public function indexAction(Request $request)
     {
 
-        $query = $this->get('bankmaster.tournament.search')->run(new TournamentCriteriaBuilder($request->query));
-        $tournamentList = $this->getPaginatedResources($query, $request->query);
+        $query = $this->get('bankmaster.user.search')->run(new TournamentCriteriaBuilder($request->query));
+        $userList = $this->getPaginatedResources($query, $request->query);
 
-        return $this->render('admin/tournament/index.html.twig',
+        return $this->render('admin/user/index.html.twig',
                               [
-                                  'userList' => $tournamentList,
-                                  'query' => $this->generateUrlParameter($request->query),
-                                  'form' => $this->createForm(TournamentType::class)->createView()
+                                  'userList' => $userList,
+                                  'query' => $this->generateUrlParameter($request->query)
                               ]);
     }
 
@@ -59,8 +58,6 @@ class UserController extends Controller
 
         return $this->redirectToRoute('admin.tournament.index', $request->request->get('tournament'));
     }
-
-
 
     /**
      *

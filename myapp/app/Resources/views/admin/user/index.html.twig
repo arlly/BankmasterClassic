@@ -1,0 +1,74 @@
+{# app/Resources/views/lucky/number.html.twig #}
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+
+
+
+
+<div class="card">
+
+
+  <div class="header">
+    <h2>Tournament</h2>
+    <ul class="header-dropdown m-r--5">
+      <li class="dropdown">
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <i class="material-icons">more_vert</i>
+        </a>
+        <ul class="dropdown-menu pull-right">
+          <li><a href={{ path('admin.tournament.add') }}> +新規追加</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="body">
+    <nav>
+      <ul class="pagination">
+        <li>
+          <a href="?page=1&{{ query }}">
+            <i class="material-icons">chevron_left</i>
+          </a>
+        </li>
+{% for i in 1..userList.maxPage %}
+        <li{% if (i == userList.page) %} class="active"{% endif %}><a href="?page={{ i }}&{{ query }}">{{ i }}</a></li>
+{% endfor %}
+        <li>
+          <a href="?page={{ userList.maxPage }}&{{ query }}" class="waves-effect">
+            <i class="material-icons">chevron_right</i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+<div class="table-responsive">
+      <table class="table table-hover dashboard-task-infos">
+        <tr>
+          <th>ID</th>
+          <th>ユーザー名</th>
+          <th>メールアドレス</th>
+          <td>ハンドルネーム</td>
+          <td>ホームグラウンド</td>
+          <td>編集</td>
+          <td>削除</td>
+        </tr>
+{% for user in userList.resources %}
+<tr>
+    <th>{{ user.id }}</th>
+    <th>{{ user.username }}</th>
+    <th>{{ user.email }}</th>
+    <td>{{ user.nickname }}</td>
+    <td>{{ user.homeGround }}</td>
+    <td><a href={{ path('admin.user.update', {"id": user.id}) }}>編集</a></td>
+    <td><a href={{ path('admin.user.remove', {"id": user.id}) }}>削除</a></td>
+</tr>
+{% endfor %}
+      </table>
+    </div>
+
+
+  </div>
+</div>
+
+{% endblock %}
