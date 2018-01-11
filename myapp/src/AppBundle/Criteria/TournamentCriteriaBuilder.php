@@ -92,6 +92,20 @@ class TournamentCriteriaBuilder implements CriteriaBuilderInterface, ToQueryBuil
                     )
                 );
         }
+
+        if ($this->query->has('active') && ($this->query->get('active') != '')) {
+            $builder->andWhere(
+                $expr->lte(
+                    'main.startDate',
+                    $expr->literal($this->query->get('active'))
+                )
+            )->andWhere(
+                $expr->gte(
+                    'main.endDate',
+                    $expr->literal($this->query->get('active'))
+                )
+            );
+        }
     }
 
 

@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use PHPMentors\DomainKata\Entity\EntityInterface;
 use PHPMentors\DomainKata\Repository\Operation\CriteriaBuilderInterface;
@@ -50,5 +51,16 @@ class TournamentRepository extends EntityRepository implements RepositoryInterfa
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
+    }
+
+    public function getActiveTournament()
+    {
+        $query = $this->createQueryBuilder('main')
+            ->where('main.startDate <= :date')
+            ->andWhere('main.endDate >= :date')
+            ->setParameters([':date' => date('Y-m-d')])
+            ->getQuery();
+
+        return new ArrayCollection($query->getResult());
     }
 }

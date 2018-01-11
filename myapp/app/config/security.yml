@@ -13,12 +13,12 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        main:
+        admin:
             pattern: ^/
+            anonymous: ~
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-
             logout:       true
             anonymous:    true
 
