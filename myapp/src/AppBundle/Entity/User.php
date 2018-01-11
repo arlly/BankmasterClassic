@@ -16,6 +16,11 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser implements EntityInterface
 {
+
+    const ADMIN = 'ROLE_ADMIN';
+    const STAFF = 'ROLE_STAFF';
+    const USER = 'ROLE_USER';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -41,7 +46,8 @@ class User extends BaseUser implements EntityInterface
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+
+        $this->roles = [self::USER];
     }
 
     /**
