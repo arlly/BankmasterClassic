@@ -1,12 +1,12 @@
 <?php
 namespace AppBundle\Repository;
 
+use AppBundle\Criteria\ToQueryBuilderInterface;
+use AppBundle\Fulcrum\Repository\RepositoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use PHPMentors\DomainKata\Entity\EntityInterface;
 use PHPMentors\DomainKata\Repository\Operation\CriteriaBuilderInterface;
-use AppBundle\Fulcrum\Repository\RepositoryInterface;
-use AppBundle\Criteria\ToQueryBuilderInterface;
 
 /**
  * TournamentRepository
@@ -62,5 +62,6 @@ class TournamentRepository extends EntityRepository implements RepositoryInterfa
             ->getQuery();
 
         return new ArrayCollection($query->getResult());
+
     }
 }
