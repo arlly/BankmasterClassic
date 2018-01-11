@@ -2,21 +2,18 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Controller\PaginatorTrait;
+use AppBundle\Controller\UrlParameterTrait;
+use AppBundle\Criteria\IdCriteriaBuilder;
+use AppBundle\Criteria\TournamentCriteriaBuilder;
+use AppBundle\Entity\Tournament;
+use AppBundle\Form\TournamentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Criteria\IdCriteriaBuilder;
-use AppBundle\Form\TournamentType;
-use AppBundle\Entity\Tournament;
-use AppBundle\Criteria\TourIdCriteriaBuilder;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use AppBundle\Criteria\TournamentCriteriaBuilder;
-use Symfony\Component\HttpFoundation\ParameterBag;
-use AppBundle\Controller\UrlParameterTrait;
 
 
 /**
@@ -40,10 +37,10 @@ class UserController extends Controller
         $userList = $this->getPaginatedResources($query, $request->query);
 
         return $this->render('admin/user/index.html.twig',
-                              [
-                                  'userList' => $userList,
-                                  'query' => $this->generateUrlParameter($request->query)
-                              ]);
+            [
+                'userList' => $userList,
+                'query' => $this->generateUrlParameter($request->query)
+            ]);
     }
 
     /**
@@ -69,7 +66,7 @@ class UserController extends Controller
         $form = $this->createForm(TournamentType::class, new Tournament());
         $form->handleRequest($request);
 
-        if (! $form->isValid()) return $this->render('admin/tournament/edit.html.twig', ['form' => $form->createView()]);
+        if (!$form->isValid()) return $this->render('admin/tournament/edit.html.twig', ['form' => $form->createView()]);
 
         $tour = $form->getData();
         $this->get('bankmaster.tournament.create')->run($tour);
@@ -91,24 +88,24 @@ class UserController extends Controller
         ]);
     }
 
-
     /**
      * @Method ("POST")
      * @Route("/update/{id}")
      */
     public function updatePostAction(int $id, Request $request)
     {
-        $tournament = $this->get('bankmaster.tournament.get_one')->run(new IdCriteriaBuilder($id, false));
-        $form = $this->createForm(TournamentType::class, $tournament);
+        $user = $this->get('bankmaster.user.get_one')->run(new IdCriteriaBuilder($id, false));
+        $form = $this->createUserForm();
         $form->handleRequest($request);
 
-        if (! $form->isValid()) return $this->render('admin/tournament/edit.html.twig', ['form' => $form->createView()]);
+        if (!$form->isValid()) return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
 
-        $this->get('bankmaster.tournament.update')->run($tournament);
+        $data = $form->getData();
+        $user->setEnabled($data['enabled']);
+        $this->get('bankmaster.user.update')->run($user);
 
-        return $this->redirect($this->generateUrl('admin.tournament.index'));
+        return $this->redirect($this->generateUrl('admin.user.index'));
     }
-
 
     /**
      *
@@ -117,13 +114,12 @@ class UserController extends Controller
      */
     public function updateAction(int $id)
     {
-        $tournament = $this->get('bankmaster.tournament.get_one')->run(new IdCriteriaBuilder($id, false));
-        $form = $this->createForm(TournamentType::class, $tournament);
-        return $this->render('admin/tournament/edit.html.twig', [
-            'form' => $form->createView()
+        $user = $this->get('bankmaster.user.get_one')->run(new IdCriteriaBuilder($id, false));
+        return $this->render('admin/user/edit.html.twig', [
+            'user' => $user,
+            'form' => $this->createUserForm()->createView()
         ]);
     }
-
 
     /**
      * @Method ("GET")
@@ -137,6 +133,14 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('admin.tournament.index'));
     }
 
+    private function createUserForm()
+    {
+        return $this->createFormBuilder()
+            ->add('enabled', ChoiceType::class, ['choices' => ['承認' => 1, '未承認' => 0]])
+            ->add('submit', SubmitType::class, ['label' => '送信'])
+            ->getForm();
+
+    }
 
 
 }

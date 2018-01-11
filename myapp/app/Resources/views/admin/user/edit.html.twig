@@ -1,0 +1,42 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+<div class="card">
+  <div class="body">
+    <div class="table-responsive">
+      <table class="table table-hover dashboard-task-infos">
+        <tr>
+          <th>名前</th>
+          <td>{{ user.username}}</td>
+        </tr>
+        <tr>
+          <th>ハンドルネーム</th>
+          <td>{{ user.nickname}}</td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td>{{ user.email}}</td>
+        </tr>
+        <tr>
+          <th>ホームグラウンド</th>
+          <td>{{ user.homeground}}</td>
+        </tr>
+      </table>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+      <table class="table table-hover dashboard-task-infos">
+        <tr>
+          <th>ステータス</th>
+          <td>
+              {{ form_widget(form.enabled, {"attr": {"class":"form-control"}}) }}
+              {{ form_errors(form.enabled) }}
+          </td>
+        </tr>
+      </table>
+        {{ form_end(form) }}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

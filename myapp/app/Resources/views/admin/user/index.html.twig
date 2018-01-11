@@ -50,6 +50,7 @@
           <th>メールアドレス</th>
           <td>ハンドルネーム</td>
           <td>ホームグラウンド</td>
+            <td>状態</td>
           <td>編集</td>
           <td>削除</td>
         </tr>
@@ -60,6 +61,7 @@
     <th>{{ user.email }}</th>
     <td>{{ user.nickname }}</td>
     <td>{{ user.homeGround }}</td>
+    <td>{% if user.enabled == 1 %}承認{% else %}未承認{% endif %}</td>
     <td><a href={{ path('admin.user.update', {"id": user.id}) }}>編集</a></td>
     <td><a href={{ path('admin.user.remove', {"id": user.id}) }}>削除</a></td>
 </tr>
