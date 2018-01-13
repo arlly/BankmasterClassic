@@ -21,8 +21,67 @@
     </ul>
   </div>
   <div class="body">
+    {{ form_start(form) }}
+    <table class="table table-hover dashboard-task-infos">
+      <tr>
+        <th>フィールド</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.field, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.field) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>サイズ</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.size, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.size) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>写真１</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.photo1, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.photo1) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>写真２</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.photo2, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.photo2) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>写真３</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.photo3, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.photo3) }}
+            </div>
+          </div>
+        </td>
+      </tr>
 
-{{ form(form) }}
+
+    </table>
+    {{ form_end(form) }}
 
 
   </div>

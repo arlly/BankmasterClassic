@@ -20,8 +20,8 @@ class LivewellType extends AbstractType
         $builder->add('field', TextType::class, ['label' => 'フィールド'])
             ->add('size', TextType::class, ['label' => 'サイズ'])
             ->add('photo1', FileType::class, ['label' => '写真1'])
-            ->add('photo2', FileType::class, ['label' => '写真2'])
-            ->add('photo3', FileType::class, ['label' => '写真3'])
+            ->add('photo2', FileType::class, ['required' => false, 'label' => '写真2'])
+            ->add('photo3', FileType::class, ['required' => false, 'label' => '写真3'])
             ->add('send', SubmitType::class, ['label' => '送信する']);
     }
 }

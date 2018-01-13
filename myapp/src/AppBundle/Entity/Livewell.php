@@ -59,14 +59,17 @@ class Livewell implements EntityInterface
      * @var string
      *
      * @ORM\Column(name="size", type="decimal", precision=10, scale=2)
+     * @Assert\Range(
+     *      min = 30,
+     *      max = 80,
+     * )
      */
     private $size;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="approval", type="integer")
-     * @Assert\NotBlank()
+     * @ORM\Column(name="approval", type="integer", options={"default" : 0})
      */
     private $approval;
 
@@ -74,14 +77,12 @@ class Livewell implements EntityInterface
     /**
      * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="tournament")
      * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
-     * @Assert\NotBlank()
      */
     private $tournament;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="user")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @Assert\NotBlank()
      */
     private $user;
 
