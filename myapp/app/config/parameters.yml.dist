@@ -17,3 +17,6 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Livewell Image Upload Directory
+    livewell_image_directory: '%kernel.project_dir%/web/uploads/livewell'

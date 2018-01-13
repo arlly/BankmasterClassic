@@ -1,4 +1,25 @@
 services:
+
+    bankmaster.livewell.get_one:
+        class: AppBundle\Fulcrum\Usecase\GetOne
+        arguments: ["@bankmaster.livewell_repository"]
+
+    bankmaster.livewell.search:
+        class: AppBundle\Fulcrum\Usecase\Search
+        arguments: ["@bankmaster.livewell_repository"]
+
+    bankmaster.livewell.create:
+        class: AppBundle\Fulcrum\Usecase\CreateEntity
+        arguments: ["@bankmaster.livewell_repository", "@event_dispatcher"]
+
+    bankmaster.livewell.update:
+        class: AppBundle\Fulcrum\Usecase\UpdateEntity
+        arguments: ["@bankmaster.tour_repository", "@event_dispatcher"]
+
+    bankmaster.livewell.remove:
+        class: AppBundle\Fulcrum\Usecase\RemoveEntity
+        arguments: ["@bankmaster.livewell_repository", "@event_dispatcher"]
+
     bankmaster.tour.get_one:
         class: AppBundle\Fulcrum\Usecase\GetOne
         arguments: ["@bankmaster.tour_repository"]
@@ -77,6 +98,12 @@ services:
         factory: ["@doctrine.orm.default_entity_manager", getRepository]
         arguments:
             - AppBundle\Entity\User
+
+    bankmaster.livewell_repository:
+        class:  AppBundle\Repository\LivewellRepository
+        factory: ["@doctrine.orm.default_entity_manager", getRepository]
+        arguments:
+            - AppBundle\Entity\Livewell
             
     bankmaster.send_mail:
         class:  AppBundle\Usecase\SendMail
@@ -89,6 +116,10 @@ services:
     app.form.registration:
         class: AppBundle\Form\RegistrationType
         tags:
-            - { name: form.type, alias: app_user_registration }    
+            - { name: form.type, alias: app_user_registration }
+
+    bankmaster.upload_livewell_image:
+            class:  AppBundle\Usecase\UploadFile
+            arguments: [%livewell_image_directory%]
     
         

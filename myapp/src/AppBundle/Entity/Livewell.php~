@@ -27,7 +27,6 @@ class Livewell implements EntityInterface
      * @var string
      *
      * @ORM\Column(name="field", type="string", length=255)
-     * @Assert\NotBlank()
      */
     private $field;
 
@@ -35,7 +34,6 @@ class Livewell implements EntityInterface
      * @var string
      *
      * @ORM\Column(name="photo1", type="string", length=255)
-     * @Assert\Image()
      */
     private $photo1;
 
@@ -43,7 +41,6 @@ class Livewell implements EntityInterface
      * @var string|null
      *
      * @ORM\Column(name="photo2", type="string", length=255, nullable=true)
-     * @Assert\Image()
      */
     private $photo2;
 
@@ -51,7 +48,6 @@ class Livewell implements EntityInterface
      * @var string|null
      *
      * @ORM\Column(name="photo3", type="string", length=255, nullable=true)
-     * @Assert\Image()
      */
     private $photo3;
 
@@ -59,17 +55,14 @@ class Livewell implements EntityInterface
      * @var string
      *
      * @ORM\Column(name="size", type="decimal", precision=10, scale=2)
-     * @Assert\Range(
-     *      min = 30,
-     *      max = 80,
-     * )
      */
     private $size;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="approval", type="integer", options={"default" : 0})
+     * @ORM\Column(name="approval", type="integer")
+     * @Assert\NotBlank()
      */
     private $approval;
 
@@ -77,12 +70,14 @@ class Livewell implements EntityInterface
     /**
      * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="tournament")
      * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $tournament;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="user")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $user;
 
@@ -265,29 +260,5 @@ class Livewell implements EntityInterface
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Set field.
-     *
-     * @param string $field
-     *
-     * @return Livewell
-     */
-    public function setField($field)
-    {
-        $this->field = $field;
-
-        return $this;
-    }
-
-    /**
-     * Get field.
-     *
-     * @return string
-     */
-    public function getField()
-    {
-        return $this->field;
     }
 }

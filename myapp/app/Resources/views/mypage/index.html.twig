@@ -40,7 +40,7 @@
               <th>{{ tournament.tour }}</th>
               <td>{{ tournament.startDate.date|date("Y-m-d") }}</td>
               <td>{{ tournament.endDate.date|date("Y-m-d") }}</td>
-              <td>投稿する</td>
+              <td><a href={{ path('mypage.livewell.add', {"id": tournament.id}) }}>投稿する</a></td>
 
             </tr>
           {% endfor %}

@@ -1,0 +1,90 @@
+{# app/Resources/views/lucky/number.html.twig #}
+{% extends 'mypage_layout.html.twig' %}
+
+{% block body %}
+
+<div class="card">
+
+  <div class="header">
+    <h2>Dashboard</h2>
+    <ul class="header-dropdown m-r--5">
+      <li class="dropdown">
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <i class="material-icons">more_vert</i>
+        </a>
+        <ul class="dropdown-menu pull-right">
+          <li><a href="javascript:void(0);">Action</a></li>
+          <li><a href="javascript:void(0);">Another action</a></li>
+          <li><a href="javascript:void(0);">Something else here</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="body">
+    {{ form_start(form) }}
+    <table class="table table-hover dashboard-task-infos">
+      <tr>
+        <th>フィールド</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.field, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.field) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>サイズ</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.size, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.size) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>写真１</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.photo1, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.photo1) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>写真２</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.photo2, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.photo2) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>写真３</th>
+        <td>
+          <div class="form-group">
+            <div class="form-line">
+                {{ form_widget(form.photo3, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.photo3) }}
+            </div>
+          </div>
+        </td>
+      </tr>
+
+
+    </table>
+    {{ form_end(form) }}
+
+
+  </div>
+</div>
+
+{% endblock %}
