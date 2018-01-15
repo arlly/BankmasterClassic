@@ -76,4 +76,20 @@ class LivewellController extends Controller
 
         return $this->redirect($this->generateUrl('mypage.livewell.index'));
     }
+
+    /**
+     *
+     * @method ("GET")
+     * @Route("/livewell/history/{id}", name="mypage.livewell.history")
+     */
+    public function addHistoryAction(int $id)
+    {
+        $histories = $this->get('bankmaster.livewell_repository')->findBy([
+                                                                      'tournament' => $id,
+                                                                      'user' => $this->getUser()->getId()
+        ]);
+
+        return $this->render('mypage/livewell/history.html.twig', ['histories' => $histories]);
+    }
+
 }

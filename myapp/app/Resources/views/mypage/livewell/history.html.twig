@@ -3,6 +3,22 @@
 
 {% block body %}
 
+  <div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-pink hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">playlist_add_check</i>
+        </div>
+        <div class="content">
+          <div class="text">現在のトータル</div>
+          <div class="number count-to" data-from="0" data-to="93.4" data-speed="15" data-fresh-interval="20"></div>
+        </div>
+      </div>
+    </div>
+
+      </div>
+    </div>
+  </div>
 <div class="card">
 
   <div class="header">
@@ -26,24 +42,18 @@
       <table class="table table-hover dashboard-task-infos">
         <tr>
           <th>ID</th>
-          <th>なまえ</th>
-          <th>ツアー</th>
-          <td>開始</td>
-          <td>終了</td>
-          <td>ライブウェル</td>
-          <td>成績</td>
-
+          <td>画像</td>
+          <th>投稿日</th>
+          <th>サイズ</th>
+          <th>状況</th>
         </tr>
-          {% for tournament in tournamentList %}
+          {% for history in histories %}
             <tr>
-              <th>{{ tournament.id }}</th>
-              <th>{{ tournament.name }}</th>
-              <th>{{ tournament.tour }}</th>
-              <td>{{ tournament.startDate.date|date("Y-m-d") }}</td>
-              <td>{{ tournament.endDate.date|date("Y-m-d") }}</td>
-              <td><a href={{ path('mypage.livewell.add', {"id": tournament.id}) }}>投稿する</a></td>
-              <td><a href={{ path('mypage.livewell.history', {"id": tournament.id}) }}>成績を見る</a></td>
-
+              <th>{{ history.id }}</th>
+              <th><img src={{ livewell_image_path }}{{ history.photo1 }} width="250"></th>
+              <th>{{ history.createdAt|date("Y-m-d") }}</th>
+              <td>{{ history.size }}</td>
+              <td>{% if history.approval %}承認済み{% else %}未承認{% endif %}</td>
             </tr>
           {% endfor %}
       </table>
