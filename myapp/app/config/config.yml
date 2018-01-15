@@ -37,6 +37,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        livewell_image_path: '%livewell_image_path%'
 
 # Doctrine Configuration
 doctrine:

@@ -1,0 +1,54 @@
+{# app/Resources/views/lucky/number.html.twig #}
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+
+
+
+
+<div class="card">
+
+  <div class="header">
+    <h2>Tour</h2>
+    <ul class="header-dropdown m-r--5">
+      <li class="dropdown">
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <i class="material-icons">more_vert</i>
+        </a>
+        <ul class="dropdown-menu pull-right">
+          <li><a href={{ path('admin.tour.add') }}> +新規追加</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="body">
+
+<div class="table-responsive">
+      <table class="table table-hover dashboard-task-infos">
+        <tr>
+          <th>ID</th>
+          <th>投稿者</th>
+          <td>日付</td>
+          <td>トーナメント名</td>
+          <td>承認</td>
+          <td>編集</td>
+        </tr>
+{% for livewell in livewellList.resources %}
+<tr>
+    <th>{{ livewell.id }}</th>
+    <th>{{ livewell.user }}</th>
+    <td>{{ livewell.createdAt|date("Y-m-d") }}</td>
+    <td>{{ livewell.tournament }}</td>
+    <td>{% if livewell.approval %}承認済み{% else %}未承認{% endif %}</td>
+    <td><a href={{ path('admin.livewell.update', {"id": livewell.id}) }}>編集</a></td>
+</tr>
+{% endfor %}
+      </table>
+    </div>
+
+
+  </div>
+</div>
+
+{% endblock %}

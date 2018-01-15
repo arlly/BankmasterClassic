@@ -71,6 +71,7 @@ class Livewell implements EntityInterface
      * @var int
      *
      * @ORM\Column(name="approval", type="integer", options={"default" : 0})
+     * @Assert\NotBlank(groups={"admin"})
      */
     private $approval;
 

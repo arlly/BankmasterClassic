@@ -2,7 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Criteria\ToQueryBuilderInterface;
 use AppBundle\Fulcrum\Repository\RepositoryInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use PHPMentors\DomainKata\Entity\EntityInterface;
 use PHPMentors\DomainKata\Repository\Operation\CriteriaBuilderInterface;
@@ -27,7 +29,14 @@ class LivewellRepository extends EntityRepository implements RepositoryInterface
 
     public function queryByCriteria(CriteriaBuilderInterface $criteriaBuilder)
     {
-        // TODO: Implement queryByCriteria() method.
+        $queryBuilder = $this->createQueryBuilder('main');
+
+        if ($criteriaBuilder instanceof ToQueryBuilderInterface) {
+            $criteriaBuilder->buildToQueryBuilder($queryBuilder);
+            return $queryBuilder->getQuery();
+        } else {
+            return $queryBuilder->addCriteria($criteriaBuilder->build())->getQuery();
+        }
     }
 
     public function getOneByCriteria(CriteriaBuilderInterface $criteriaBuilder)

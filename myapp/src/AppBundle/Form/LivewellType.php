@@ -5,12 +5,13 @@
  * Date: 2018/01/11
  * Time: 18:01
  */
+
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class LivewellType extends AbstractType
@@ -24,4 +25,6 @@ class LivewellType extends AbstractType
             ->add('photo3', FileType::class, ['required' => false, 'label' => '写真3'])
             ->add('send', SubmitType::class, ['label' => '送信する']);
     }
+
+
 }

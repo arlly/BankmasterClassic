@@ -59,14 +59,11 @@ class LivewellController extends Controller
         if (! $form->isValid()) return $this->render('mypage/livewell/add.html.twig', ['form' => $form->createView()]);
 
         $fileName1 = $this->get('bankmaster.upload_livewell_image')->run($livewell->getPhoto1());
+        $fileName2 = null;
+        $fileName3 = null;
 
-        if ($livewell->getPhoto2())
-            $fileName2 = $this->get('bankmaster.upload_livewell_image')->run($livewell->getPhoto2());
-        else $fileName2 = null;
-
-        if ($livewell->getPhoto3())
-            $fileName3 = $this->get('bankmaster.upload_livewell_image')->run($livewell->getPhoto3());
-        else $fileName3 = null;
+        if ($livewell->getPhoto2()) $fileName2 = $this->get('bankmaster.upload_livewell_image')->run($livewell->getPhoto2());
+        if ($livewell->getPhoto3()) $fileName3 = $this->get('bankmaster.upload_livewell_image')->run($livewell->getPhoto3());
 
         $livewell->setPhoto1($fileName1);
         $livewell->setPhoto2($fileName2);

@@ -164,4 +164,9 @@ class Tournament implements EntityInterface
     {
         return $this->tour;
     }
+
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
 }

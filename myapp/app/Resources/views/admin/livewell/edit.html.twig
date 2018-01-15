@@ -1,0 +1,72 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+<div class="card">
+  <div class="body">
+    <div class="table-responsive">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+      <table class="table table-hover dashboard-task-infos">
+        <tr>
+          <th>フィールド</th>
+          <td>
+            <div class="form-group">
+              <div class="form-line">{{ livewell.field }}</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>写真1</th>
+          <td>
+            <div class="form-group">
+              <div class="form-line"><img src={{ livewell_image_path }}{{ livewell.photo1 }} width="680"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>写真2</th>
+          <td>
+            <div class="form-group">
+              <div class="form-line"><img src={{ livewell_image_path }}{{ livewell.photo2 }} width="680"></div>
+            </div>
+          </td>
+        </tr><tr>
+          <th>写真3</th>
+          <td>
+            <div class="form-group">
+              <div class="form-line"><img src={{ livewell_image_path }}{{ livewell.photo3 }} width="680"></div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <th>サイズ</th>
+          <td>
+            <div class="form-group">
+              <div class="form-line">
+                {{ form_widget(form.size, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.size) }}
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>承認</th>
+          <td>
+            <div class="form-group">
+              <div class="form-line">
+                {{ form_widget(form.approval, {"attr": {"class":"form-control"}}) }}
+                {{ form_errors(form.approval) }}
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    {{ form_end(form) }}
+    </div>
+  </div>
+</div>
+
+{{ form_end(form) }}
+
+{% endblock %}
