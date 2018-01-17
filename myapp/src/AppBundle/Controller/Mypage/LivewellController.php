@@ -4,12 +4,13 @@ namespace AppBundle\Controller\Mypage;
 
 use AppBundle\Controller\PaginatorTrait;
 use AppBundle\Criteria\IdCriteriaBuilder;
+use AppBundle\Criteria\PersonalScoreOnTournamentCriteriaBuilder;
 use AppBundle\Entity\Livewell;
 use AppBundle\Form\LivewellType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Request;
 
 
 /**
@@ -85,11 +86,17 @@ class LivewellController extends Controller
     public function addHistoryAction(int $id)
     {
         $histories = $this->get('bankmaster.livewell_repository')->findBy([
-                                                                      'tournament' => $id,
-                                                                      'user' => $this->getUser()->getId()
+            'tournament' => $id,
+            'user' => $this->getUser()->getId()
         ]);
 
-        return $this->render('mypage/livewell/history.html.twig', ['histories' => $histories]);
+        $criteria = new PersonalScoreOnTournamentCriteriaBuilder($id, $this->getUser()->getId(), $this->getParameter('limit_number'));
+        $totalSize = $this->get('bankmaster.get_personal_score')->run($criteria);
+
+        return $this->render('mypage/livewell/history.html.twig', [
+            'histories' => $histories,
+            'totalSize' => $totalSize
+        ]);
     }
 
 }

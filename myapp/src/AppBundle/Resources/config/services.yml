@@ -119,7 +119,11 @@ services:
             - { name: form.type, alias: app_user_registration }
 
     bankmaster.upload_livewell_image:
-            class:  AppBundle\Usecase\UploadFile
-            arguments: [%livewell_image_directory%]
+        class:  AppBundle\Usecase\UploadFile
+        arguments: [%livewell_image_directory%]
+
+    bankmaster.get_personal_score:
+        class: AppBundle\Usecase\GetPersonalScore
+        arguments: ["@bankmaster.livewell_repository"]
     
         

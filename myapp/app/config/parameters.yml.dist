@@ -20,3 +20,6 @@ parameters:
 
     # Livewell Image Upload Directory
     livewell_image_directory: '%kernel.project_dir%/web/uploads/livewell'
+
+    # LimitNumber
+    limit_number: 3
