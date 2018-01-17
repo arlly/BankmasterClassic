@@ -2,11 +2,10 @@
 
 namespace AppBundle\Controller\Mypage;
 
-use AppBundle\Criteria\TournamentCriteriaBuilder;
+use AppBundle\Controller\PaginatorTrait;
+use AppBundle\Criteria\PersonalScoreOnTourCriteriaBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
 
 
 /**
@@ -23,10 +22,15 @@ class DashboardController extends Controller
      */
     public function indexAction()
     {
+        $criteria = new PersonalScoreOnTourCriteriaBuilder(1, $this->getUser()->getId());
+        $totalScore = $this->get('bankmaster.get_personal_score')->run($criteria);
+
         // アクティブなトーナメントを表示する
         $tournamentList = $this->get('bankmaster.tournament_repository')->getActiveTournament();
-
-        return $this->render('mypage/index.html.twig', ['tournamentList' => $tournamentList]);
+        return $this->render('mypage/index.html.twig', [
+            'tournamentList' => $tournamentList,
+            'totalScore' => $totalScore
+        ]);
     }
 
 }

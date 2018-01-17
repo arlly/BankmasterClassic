@@ -14,17 +14,14 @@ use PHPMentors\DomainKata\Repository\Operation\CriteriaBuilderInterface;
 
 class PersonalScoreOnTourCriteriaBuilder implements CriteriaBuilderInterface
 {
-    private $tourId;
     private $userId;
-    private $limit;
 
     const approval = 1;
 
-    public function __construct(int $tourId, int $userId, int $limit)
+    public function __construct(int $userId)
     {
-        $this->tourId = $tourId;
+
         $this->userId = $userId;
-        $this->limit = $limit;
     }
 
     /**
@@ -34,10 +31,8 @@ class PersonalScoreOnTourCriteriaBuilder implements CriteriaBuilderInterface
     {
         $criteria = new Criteria();
 
-        $criteria->andWhere($criteria->expr()->eq('tour', $this->tourId))
-            ->andWhere($criteria->expr()->eq('user', $this->userId))
+        $criteria->andWhere($criteria->expr()->eq('user', $this->userId))
             ->andWhere($criteria->expr()->eq('approval', self::approval))
-            ->setMaxResults($this->limit)
             ->orderBy(['size' => Criteria::DESC]);
 
         return $criteria;
