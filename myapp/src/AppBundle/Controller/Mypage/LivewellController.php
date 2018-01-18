@@ -75,7 +75,7 @@ class LivewellController extends Controller
 
         $this->get('bankmaster.livewell.create')->run($livewell);
 
-        return $this->redirect($this->generateUrl('mypage.livewell.index'));
+        return $this->redirect($this->generateUrl('mypage.livewell.history', ['id' => $id]));
     }
 
     /**
