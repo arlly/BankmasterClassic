@@ -125,5 +125,9 @@ services:
     bankmaster.get_personal_score:
         class: AppBundle\Usecase\GetPersonalScore
         arguments: ["@bankmaster.livewell_repository"]
+
+    bankmaster.replace_livewell:
+        class: AppBundle\Usecase\ReplaceLivewell
+        arguments: ["@bankmaster.livewell_repository", "%limit_number%"]
     
         

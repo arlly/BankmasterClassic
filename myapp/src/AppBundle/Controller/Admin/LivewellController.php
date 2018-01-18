@@ -86,6 +86,7 @@ class LivewellController extends Controller
         }
 
         $this->get('bankmaster.livewell.update')->run($livewell);
+        $this->get('bankmaster.replace_livewell')->run($livewell->getUser()->getId(), $livewell->getTournament()->getId());
         return $this->redirect($this->generateUrl('admin.livewell.index'));
     }
 

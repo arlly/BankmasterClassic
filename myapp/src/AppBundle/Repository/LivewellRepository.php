@@ -59,4 +59,24 @@ class LivewellRepository extends EntityRepository implements RepositoryInterface
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
     }
+
+    /**
+     * @param int $userId
+     * @param int $tournamentId
+     * @return ArrayCollection
+     */
+    public function getPersonalLivewell(int $userId, int $tournamentId): ArrayCollection
+    {
+        $query = $this->createQueryBuilder('main')
+            ->where('main.user = :user')
+            ->andWhere('main.tournament = :tournament')
+            ->andWhere('main.approval = :approval')
+            ->setParameter(':user', $userId)
+            ->setParameter(':tournament',  $tournamentId)
+            ->setParameter(':approval', 1)
+            ->orderBy('main.size', 'DESC')
+            ->getQuery();
+
+        return new ArrayCollection($query->getResult());
+    }
 }
