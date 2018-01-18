@@ -72,10 +72,29 @@ class LivewellRepository extends EntityRepository implements RepositoryInterface
             ->andWhere('main.tournament = :tournament')
             ->andWhere('main.approval = :approval')
             ->setParameter(':user', $userId)
-            ->setParameter(':tournament',  $tournamentId)
+            ->setParameter(':tournament', $tournamentId)
             ->setParameter(':approval', 1)
             ->orderBy('main.size', 'DESC')
             ->getQuery();
+
+        return new ArrayCollection($query->getResult());
+    }
+
+    /**
+     * @param CriteriaBuilderInterface $criteriaBuilder
+     * @return ArrayCollection
+     * @throws \Doctrine\ORM\Query\QueryException
+     */
+    public function getRankList(CriteriaBuilderInterface $criteriaBuilder)
+    {
+        $query = $this->createQueryBuilder('main')
+            ->addCriteria($criteriaBuilder->build())
+            ->groupBy('main.user')
+            ->select('IDENTITY(main.user)', 'SUM(main.size) AS totalScore')
+            ->orderBy('totalScore', 'DESC')
+            ->getQuery();
+
+        dump($query->getResult()); exit();
 
         return new ArrayCollection($query->getResult());
     }

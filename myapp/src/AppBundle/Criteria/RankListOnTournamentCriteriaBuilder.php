@@ -12,15 +12,15 @@ use PHPMentors\DomainKata\Entity\CriteriaInterface;
 use PHPMentors\DomainKata\Repository\Operation\CriteriaBuilderInterface;
 
 
-class PersonalScoreOnTourCriteriaBuilder implements CriteriaBuilderInterface
+class RankListOnTournamentCriteriaBuilder implements CriteriaBuilderInterface
 {
-    private $userId;
+    private $tournamentId;
 
     const approval = 1;
 
-    public function __construct(int $userId)
+    public function __construct(int $tournamentId)
     {
-        $this->userId = $userId;
+        $this->tournamentId = $tournamentId;
     }
 
     /**
@@ -30,7 +30,7 @@ class PersonalScoreOnTourCriteriaBuilder implements CriteriaBuilderInterface
     {
         $criteria = new Criteria();
 
-        $criteria->andWhere($criteria->expr()->eq('user', $this->userId))
+        $criteria->andWhere($criteria->expr()->eq('tournament', $this->tournamentId))
             ->andWhere($criteria->expr()->eq('approval', self::approval));
 
         return $criteria;

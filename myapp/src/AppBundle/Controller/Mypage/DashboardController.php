@@ -32,5 +32,4 @@ class DashboardController extends Controller
             'totalScore' => $totalScore
         ]);
     }
-
 }

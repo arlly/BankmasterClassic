@@ -126,6 +126,10 @@ services:
         class: AppBundle\Usecase\GetPersonalScore
         arguments: ["@bankmaster.livewell_repository"]
 
+    bankmaster.get_rank_list:
+            class: AppBundle\Usecase\GetRankList
+            arguments: ["@bankmaster.livewell_repository"]
+
     bankmaster.replace_livewell:
         class: AppBundle\Usecase\ReplaceLivewell
         arguments: ["@bankmaster.livewell_repository", "%limit_number%"]

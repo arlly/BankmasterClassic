@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Criteria\RankListOnTournamentCriteriaBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -120,6 +121,10 @@ class TournamentController extends Controller
      */
     public function updateAction(int $id)
     {
+        $criteria = new RankListOnTournamentCriteriaBuilder($id);
+        $scoreList = $this->get('bankmaster.get_rank_list')->run($criteria);
+        //dump($scoreList); exit();
+
         $tournament = $this->get('bankmaster.tournament.get_one')->run(new IdCriteriaBuilder($id, false));
         $form = $this->createForm(TournamentType::class, $tournament);
         return $this->render('admin/tournament/edit.html.twig', [
