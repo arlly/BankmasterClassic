@@ -22,7 +22,7 @@ class DashboardController extends Controller
      */
     public function indexAction()
     {
-        $criteria = new PersonalScoreOnTourCriteriaBuilder(1, $this->getUser()->getId());
+        $criteria = new PersonalScoreOnTourCriteriaBuilder($this->getUser()->getId());
         $totalScore = $this->get('bankmaster.get_personal_score')->run($criteria);
 
         // アクティブなトーナメントを表示する
