@@ -127,8 +127,8 @@ services:
         arguments: ["@bankmaster.livewell_repository"]
 
     bankmaster.get_rank_list:
-            class: AppBundle\Usecase\GetRankList
-            arguments: ["@bankmaster.livewell_repository"]
+        class: AppBundle\Usecase\GetRankList
+        arguments: ["@bankmaster.livewell_repository", "@bankmaster.user_repository"]
 
     bankmaster.replace_livewell:
         class: AppBundle\Usecase\ReplaceLivewell

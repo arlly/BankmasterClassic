@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use PHPMentors\DomainKata\Entity\EntityInterface;
 use PHPMentors\DomainKata\Repository\Operation\CriteriaBuilderInterface;
@@ -40,7 +41,7 @@ class UserRepository extends EntityRepository implements RepositoryInterface
         $this->getEntityManager()->flush();
     }
 
-    public function getOneByCriteria(CriteriaBuilderInterface $criteriaBuilder)
+    public function getOneByCriteria(CriteriaBuilderInterface $criteriaBuilder): User
     {
         $query = $this->queryByCriteria($criteriaBuilder);
         return $query->getOneOrNullResult();

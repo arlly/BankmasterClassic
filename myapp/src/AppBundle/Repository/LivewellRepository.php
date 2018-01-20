@@ -90,11 +90,9 @@ class LivewellRepository extends EntityRepository implements RepositoryInterface
         $query = $this->createQueryBuilder('main')
             ->addCriteria($criteriaBuilder->build())
             ->groupBy('main.user')
-            ->select('IDENTITY(main.user)', 'SUM(main.size) AS totalScore')
+            ->select('IDENTITY(main.user) AS userId', 'SUM(main.size) AS totalScore')
             ->orderBy('totalScore', 'DESC')
             ->getQuery();
-
-        dump($query->getResult()); exit();
 
         return new ArrayCollection($query->getResult());
     }

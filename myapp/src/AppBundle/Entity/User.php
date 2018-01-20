@@ -42,6 +42,9 @@ class User extends BaseUser implements EntityInterface
     protected $homeGround;
 
 
+    protected $totalScore;
+
+
 
     public function __construct()
     {
@@ -97,4 +100,17 @@ class User extends BaseUser implements EntityInterface
     {
         return $this->homeGround;
     }
+
+    public function setTotalScore($totalScore)
+    {
+        $this->totalScore = $totalScore;
+
+        return $this;
+    }
+
+    public function getTotalScore()
+    {
+        return $this->totalScore;
+    }
+
 }
