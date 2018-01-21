@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use PHPMentors\DomainKata\Entity\EntityInterface;
@@ -44,6 +45,11 @@ class User extends BaseUser implements EntityInterface
 
     protected $totalScore;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Livewell", mappedBy="user")
+     */
+    protected $livewells;
+
 
 
     public function __construct()
@@ -51,6 +57,7 @@ class User extends BaseUser implements EntityInterface
         parent::__construct();
 
         $this->roles = [self::USER];
+        $this->livewells = new ArrayCollection();
     }
 
     /**
@@ -113,4 +120,40 @@ class User extends BaseUser implements EntityInterface
         return $this->totalScore;
     }
 
+
+    /**
+     * Add livewell.
+     *
+     * @param \AppBundle\Entity\Livewell $livewell
+     *
+     * @return User
+     */
+    public function addLivewell(\AppBundle\Entity\Livewell $livewell)
+    {
+        $this->livewells[] = $livewell;
+
+        return $this;
+    }
+
+    /**
+     * Remove livewell.
+     *
+     * @param \AppBundle\Entity\Livewell $livewell
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeLivewell(\AppBundle\Entity\Livewell $livewell)
+    {
+        return $this->livewells->removeElement($livewell);
+    }
+
+    /**
+     * Get livewells.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLivewells()
+    {
+        return $this->livewells;
+    }
 }

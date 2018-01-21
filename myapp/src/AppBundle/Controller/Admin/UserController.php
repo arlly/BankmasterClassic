@@ -115,6 +115,8 @@ class UserController extends Controller
     public function updateAction(int $id)
     {
         $user = $this->get('bankmaster.user.get_one')->run(new IdCriteriaBuilder($id, false));
+        $livewell = $user->getLivewells();
+
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
             'form' => $this->createUserForm()->createView()
