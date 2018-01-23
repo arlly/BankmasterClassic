@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use PHPMentors\DomainKata\Entity\EntityInterface;
@@ -57,6 +58,15 @@ class Tournament implements EntityInterface
      */
     private $tour;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Livewell", mappedBy="user")
+     */
+    private $livewells;
+
+    public function __construct()
+    {
+        $this->livewells = new ArrayCollection();
+    }
 
 
     /**
@@ -163,5 +173,10 @@ class Tournament implements EntityInterface
     public function getTour()
     {
         return $this->tour;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->name;
     }
 }

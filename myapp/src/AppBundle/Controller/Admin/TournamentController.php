@@ -123,12 +123,12 @@ class TournamentController extends Controller
     {
         $criteria = new RankListOnTournamentCriteriaBuilder($id);
         $scoreList = $this->get('bankmaster.get_rank_list')->run($criteria);
-        //dump($scoreList); exit();
 
         $tournament = $this->get('bankmaster.tournament.get_one')->run(new IdCriteriaBuilder($id, false));
         $form = $this->createForm(TournamentType::class, $tournament);
         return $this->render('admin/tournament/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'scoreList' => $scoreList->toArray()
         ]);
     }
 

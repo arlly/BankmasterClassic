@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use PHPMentors\DomainKata\Entity\EntityInterface;
@@ -57,6 +58,15 @@ class Tournament implements EntityInterface
      */
     private $tour;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Livewell", mappedBy="tournament")
+     */
+    private $livewells;
+
+    public function __construct()
+    {
+        $this->livewells = new ArrayCollection();
+    }
 
 
     /**
@@ -168,5 +178,41 @@ class Tournament implements EntityInterface
     public function __toString()
     {
         return (string) $this->name;
+    }
+
+    /**
+     * Add livewell.
+     *
+     * @param \AppBundle\Entity\Livewell $livewell
+     *
+     * @return Tournament
+     */
+    public function addLivewell(\AppBundle\Entity\Livewell $livewell)
+    {
+        $this->livewells[] = $livewell;
+
+        return $this;
+    }
+
+    /**
+     * Remove livewell.
+     *
+     * @param \AppBundle\Entity\Livewell $livewell
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeLivewell(\AppBundle\Entity\Livewell $livewell)
+    {
+        return $this->livewells->removeElement($livewell);
+    }
+
+    /**
+     * Get livewells.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLivewells()
+    {
+        return $this->livewells;
     }
 }

@@ -77,7 +77,7 @@ class Livewell implements EntityInterface
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="tournament")
+     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="livewells")
      * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
      */
     private $tournament;
