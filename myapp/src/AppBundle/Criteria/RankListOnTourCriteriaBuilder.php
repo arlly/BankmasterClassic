@@ -22,9 +22,7 @@ class RankListOnTourCriteriaBuilder implements CriteriaBuilderInterface
     public function build()
     {
         $criteria = new Criteria();
-
         $criteria->andWhere($criteria->expr()->eq('approval', self::approval));
-
         return $criteria;
     }
 }
