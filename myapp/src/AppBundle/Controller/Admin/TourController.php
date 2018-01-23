@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Criteria\RankListOnTourCriteriaBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -89,10 +90,14 @@ class TourController extends Controller
      */
     public function updateAction(int $id)
     {
+        $criteria = new RankListOnTourCriteriaBuilder();
+        $scoreList = $this->get('bankmaster.get_rank_list')->run($criteria);
+
         $tour = $this->get('bankmaster.tour.get_one')->run(new IdCriteriaBuilder($id, false));
         $form = $this->createForm(TourType::class, $tour);
         return $this->render('admin/tour/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'scoreList' => $scoreList->toArray()
         ]);
     }
 
