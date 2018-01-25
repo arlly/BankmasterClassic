@@ -82,3 +82,8 @@ fos_user:
             type: AppBundle\Form\RegistrationType
         confirmation:
             enabled: true
+
+# FOSRestBundle
+fos_rest:
+    view:
+        view_response_listener: force

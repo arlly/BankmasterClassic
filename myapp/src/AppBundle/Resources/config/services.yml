@@ -80,6 +80,28 @@ services:
     bankmaster.user.remove:
         class: AppBundle\Fulcrum\Usecase\RemoveEntity
         arguments: ["@bankmaster.user_repository", "@event_dispatcher"]
+
+
+    bankmaster.article.get_one:
+        class: AppBundle\Fulcrum\Usecase\GetOne
+        arguments: ["@bankmaster.article_repository"]
+
+    bankmaster.article.search:
+        class: AppBundle\Fulcrum\Usecase\Search
+        arguments: ["@bankmaster.article_repository"]
+
+    bankmaster.article.create:
+        class: AppBundle\Fulcrum\Usecase\CreateEntity
+        arguments: ["@bankmaster.article_repository", "@event_dispatcher"]
+
+    bankmaster.article.update:
+        class: AppBundle\Fulcrum\Usecase\UpdateEntity
+        arguments: ["@bankmaster.article_repository", "@event_dispatcher"]
+
+    bankmaster.article.remove:
+        class: AppBundle\Fulcrum\Usecase\RemoveEntity
+        arguments: ["@bankmaster.article_repository", "@event_dispatcher"]
+
         
     bankmaster.tour_repository:
         class:  AppBundle\Repository\TourRepository
@@ -104,6 +126,12 @@ services:
         factory: ["@doctrine.orm.default_entity_manager", getRepository]
         arguments:
             - AppBundle\Entity\Livewell
+
+    bankmaster.article_repository:
+        class:  AppBundle\Repository\ArticleRepository
+        factory: ["@doctrine.orm.default_entity_manager", getRepository]
+        arguments:
+            - AppBundle\Entity\Article
             
     bankmaster.send_mail:
         class:  AppBundle\Usecase\SendMail
