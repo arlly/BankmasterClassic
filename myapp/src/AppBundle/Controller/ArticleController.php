@@ -10,6 +10,8 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Criteria\IdCriteriaBuilder;
+use AppBundle\Entity\Article;
+use AppBundle\Form\ArticleType;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +33,17 @@ class ArticleController extends FOSRestController implements ClassResourceInterf
 
     public function postAction(Request $request)
     {
+        $form = $this->get('form.factory')->createNamed('', ArticleType::class, new Article(), [
+            'csrf_protection' => false
+        ]);
 
+        $form->handleRequest($request);
+
+        if (! $form->isValid()) return $form;
+
+        $article = $form->getData();
+        $this->get('bankmaster.article.create')->run($article);
+        return $article;
     }
 
     // get collection of comments under the post
