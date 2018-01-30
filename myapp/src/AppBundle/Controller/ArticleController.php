@@ -14,7 +14,9 @@ use AppBundle\Entity\Article;
 use AppBundle\Form\ArticleType;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends FOSRestController implements ClassResourceInterface
 {
@@ -44,6 +46,23 @@ class ArticleController extends FOSRestController implements ClassResourceInterf
         $article = $form->getData();
         $this->get('bankmaster.article.create')->run($article);
         return $article;
+    }
+
+    public function putAction(Request $request, int $id)
+    {
+        $article = $this->get('bankmaster.article.get_one')->run(new IdCriteriaBuilder($id, false));
+
+        if (! $article) return new View(null, Response::HTTP_NOT_FOUND);
+
+        $form = $this->get('form.factory')->createNamed('', ArticleType::class, $article, [
+            'csrf_protection' => false
+        ]);
+        $form->submit($request->request->all());
+
+        if (! $form->isValid()) return $form;
+
+        $this->get('bankmaster.article.update')->run($article);
+        return new View(json_encode($request->request->all()), Response::HTTP_OK);
     }
 
     // get collection of comments under the post
