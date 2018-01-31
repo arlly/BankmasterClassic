@@ -65,6 +65,16 @@ class ArticleController extends FOSRestController implements ClassResourceInterf
         return new View(json_encode($request->request->all()), Response::HTTP_OK);
     }
 
+    public function deleteAction(int $id)
+    {
+        $article = $this->get('bankmaster.article.get_one')->run(new IdCriteriaBuilder($id, false));
+
+        if (! $article) return new View(null, Response::HTTP_NOT_FOUND);
+
+        $this->get('bankmaster.article.remove')->run($article);
+        return new View(null, Response::HTTP_NO_CONTENT);
+    }
+
     // get collection of comments under the post
     public function getCommentsAction(int $id)
     {
